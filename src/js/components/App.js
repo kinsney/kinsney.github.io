@@ -46,7 +46,7 @@ export default class App extends Component {
     return (
       <div>
         <div id="logo">
-          <a href="#/">cobish.github.io</a>
+          <a href="#/">kinsney.github.io</a>
         </div>
         <div>
           {this.props.children}
