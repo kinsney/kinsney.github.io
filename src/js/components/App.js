@@ -12,7 +12,7 @@ export default class App extends Component {
     document.title = CONFIG.title;
 
     // 添加百度统计
-    this.addBaiduAnaly();
+    // this.addBaiduAnaly();
 
     // 添加多说评论框
     this.addDuoshuoComment();

@@ -15,9 +15,9 @@ export default class Menu extends Component {
     return (
       <div id="home">
         <div className="avatar">
-          <a href="https://github.com/cobish"></a>
+          <a href="https://github.com/kinsney"></a>
         </div>
-        <h1>cobish</h1>
+        <h1>kinsney</h1>
         <div className="link">
           <Link to="all">全部</Link>
           <Link to="archive">归档</Link>
