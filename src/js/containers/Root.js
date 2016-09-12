@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
-import { createHashHistory } from 'history';
+import { createHashHistory } from 'react-router/node_modules/history';
 
 import App from '../components/App.js';
 import Menu from '../components/Menu.js';
