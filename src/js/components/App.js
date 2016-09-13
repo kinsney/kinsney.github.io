@@ -4,7 +4,7 @@ import { CONFIG } from '../constants/Config.js';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.addBaiduAnaly = this.addBaiduAnaly.bind(this);
+    // this.addBaiduAnaly = this.addBaiduAnaly.bind(this);
     this.addDuoshuoComment = this.addDuoshuoComment.bind(this);
   }
 
