@@ -18,17 +18,17 @@ export default class App extends Component {
     this.addDuoshuoComment();
   }
 
-  addBaiduAnaly() {
-    if (document.domain.indexOf('github.io') > -1) {
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement('script');
-        hm.src = '//hm.baidu.com/hm.js?' + CONFIG['baiduAnaly'];
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    }
-  }
+  // addBaiduAnaly() {
+  //   if (document.domain.indexOf('github.io') > -1) {
+  //     var _hmt = _hmt || [];
+  //     (function() {
+  //       var hm = document.createElement('script');
+  //       hm.src = '//hm.baidu.com/hm.js?' + CONFIG['baiduAnaly'];
+  //       var s = document.getElementsByTagName('script')[0];
+  //       s.parentNode.insertBefore(hm, s);
+  //     })();
+  //   }
+  // }
 
   addDuoshuoComment() {
     window.duoshuoQuery = { short_name: CONFIG.duoshuo };
