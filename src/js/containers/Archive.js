@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchIssuesIfNeeded } from '../actions/index.js';
-import NProgress from 'nprogress';
 import CellView from '../components/CellView.js';
 
 class Archive extends Component {
@@ -10,13 +9,9 @@ class Archive extends Component {
     this.spliceJson = this.spliceJson.bind(this);
   }
 
-  componentWillMount() {
-    NProgress.start();
-  }
-
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchIssuesIfNeeded('created', 10000));
+    dispatch(fetchIssuesIfNeeded());
   }
 
   // 拼接 json
@@ -42,27 +37,21 @@ class Archive extends Component {
   }
 
   render() {
-    let showTemplate = () => {
-      if (this.props.isFetching) {
-        return null;
-      }
+    if (this.props.isFetching) {
+      return null;
+    }
 
-      NProgress.done();
+    let articles = this.spliceJson(this.props.items),
+        view = [];
 
-      let articles = this.spliceJson(this.props.items),
-          view = [];
-
-      for (let year in articles) {
-        let yearShow = year.substring(0, year.length - 1);
-        view.push(<CellView key={yearShow} title={yearShow} items={articles[year]} />);
-      } 
-
-      return view;
-    };
+    for (let year in articles) {
+      let yearShow = year.substring(0, year.length - 1);
+      view.push(<CellView key={yearShow} title={yearShow} items={articles[year]} />);
+    } 
 
     return (
       <div className="list">
-        {showTemplate()}
+        {view}
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchIssuesIfNeeded } from '../actions/index.js';
-import NProgress from 'nprogress';
 import CellView from '../components/CellView.js';
 
 class Tags extends Component {
@@ -10,16 +9,12 @@ class Tags extends Component {
     this.spliceJson = this.spliceJson.bind(this);
   }
 
-  componentWillMount() {
-    NProgress.start();
-  }
-
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchIssuesIfNeeded('created', 10000));
+    dispatch(fetchIssuesIfNeeded());
   }
 
-   // 拼接 json
+  // 拼接 json
   spliceJson(items) {
     let list = items,
         articles = {};
@@ -41,26 +36,20 @@ class Tags extends Component {
   }
 
   render() {
-    let showTemplate = () => {
-      if (this.props.isFetching) {
-        return null;
-      }
+    if (this.props.isFetching) {
+      return null;
+    }
 
-      NProgress.done();
+    let articles = this.spliceJson(this.props.items),
+        view = [];
 
-      let articles = this.spliceJson(this.props.items),
-          view = [];
-
-      for (let label in articles) {
-        view.push(<CellView key={label} title={label} items={articles[label]} />);
-      }    
-
-      return view;
-    };
+    for (let label in articles) {
+      view.push(<CellView key={label} title={label} items={articles[label]} />);
+    }
 
     return (
       <div className="list">
-        {showTemplate()}
+        {view}
       </div>
     );
   }

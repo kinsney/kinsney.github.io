@@ -1,29 +1,74 @@
 import React, { Component } from 'react';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
-import { createHashHistory } from 'react-router/node_modules/history';
+import { createHashHistory } from 'history';
+import { CONFIG } from '../constants/Config.js';
+import NProgress from 'nprogress';
 
-import App from '../components/App.js';
 import Menu from '../components/Menu.js';
-import All from '../containers/All.js';
-import Archive from '../containers/Archive.js';
-import Tags from '../containers/Tags.js';
-import Post from '../containers/Post.js';
+import App from '../containers/App.js';
 
 import '../../css/reset.scss';
 import '../../css/fonts.scss';
 import '../../css/index.scss';
+import '../../css/list.scss';
 import '../../css/nprogress.scss';
-import '../../css/zenburn.scss';
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+setTimeout(function(){
+  //利用iframe的onload事件刷新页面
+  document.title = CONFIG.title;
+  var iframe = document.createElement('iframe');
+  iframe.style.visibility = 'hidden';
+  iframe.style.width = '1px';
+  iframe.style.height = '1px';
+  iframe.onload = function () {
+    setTimeout(function () {
+      document.body.removeChild(iframe);
+    }, 0);
+  };
+  document.body.appendChild(iframe);
+},0);
+
+const appHistory = useRouterHistory(createHashHistory)();
+
+var All = (location, cb) => {
+  document.title = CONFIG.titleLoad;
+  NProgress.start();
+  require.ensure([], require => {
+    cb(null, require('../containers/All.js').default);
+  }, 'all');
+};
+
+var Archive = (location, cb) => {
+  document.title = CONFIG.titleLoad;
+  NProgress.start();
+  require.ensure([], require => {
+    cb(null, require('../containers/Archive.js').default);
+  }, 'archive');
+};
+
+var Tags = (location, cb) => {
+  document.title = CONFIG.titleLoad;
+  NProgress.start();
+  require.ensure([], require => {
+    cb(null, require('../containers/Tags.js').default);
+  }, 'tags');
+};
+
+var Post = (location, cb) => {
+  document.title = CONFIG.titleLoad;
+  NProgress.start();
+  require.ensure([], require => {
+    cb(null, require('../containers/Post.js').default);
+  }, 'post');
+};
 
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Menu} />
-    <Route path="all" component={All} />
-    <Route path="archive" component={Archive} />
-    <Route path="tags" component={Tags} />
-    <Route path="post/:id" component={Post} />
+    <Route path="all" getComponent={All} />
+    <Route path="archive" getComponent={Archive} />
+    <Route path="tags" getComponent={Tags} />
+    <Route path="post/:id" getComponent={Post} />
   </Route>
 );
 
